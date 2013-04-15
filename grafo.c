@@ -1,24 +1,10 @@
+#include "grafo.h"
+#include "definitions.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#define VERTICES 10
-
-/* Tipo booleano */
-enum ternario {
-   false,
-   true,
-   error
-};
-typedef enum ternario trool;
-
-/* Representação de grafos utilizando matriz de adjacência */
-struct grafo {
-   trool matriz_adjacencia[VERTICES][VERTICES];
-};
-typedef struct grafo Grafo;
-
 /* O(n^2) */
-/* Cria um grafo preenchido com zeros */
 void cria_grafo_vazio(Grafo *grafo) {
    if(grafo == NULL)
       return; /* Erro: Grafo é null */
@@ -30,7 +16,6 @@ void cria_grafo_vazio(Grafo *grafo) {
 }
 
 /* O(1) */
-/* Insere aresta entre os vértices v1 e v2 */
 void insere_aresta(int v1, int v2, Grafo *grafo) {
    if(v1 <= 0 && v1 > VERTICES)
       return; /* Erro: Vértice está fora dos limites*/
@@ -44,7 +29,6 @@ void insere_aresta(int v1, int v2, Grafo *grafo) {
 }
 
 /* O(1) */
-/* Verifica a existência de aresta entre dois vértices */
 trool existe_aresta(int v1, int v2, Grafo *grafo) {
    if(v1 <= 0 && v1 > VERTICES)
       return error; /* Erro: Vértice está fora dos limites*/
@@ -57,7 +41,6 @@ trool existe_aresta(int v1, int v2, Grafo *grafo) {
 }
 
 /* O(1) */
-/* Remove aresta entre os vértices v1 e v2 */
 void retira_aresta(int v1, int v2, Grafo *grafo) {
    if(v1 <= 0 && v1 > VERTICES)
       return; /* Erro: Vértice está fora dos limites*/
@@ -71,7 +54,6 @@ void retira_aresta(int v1, int v2, Grafo *grafo) {
 }
 
 /* Provavelmente O(n^2) */
-/* Apaga o grafo */
 void libera_grafo(Grafo *grafo) {
    if(grafo == NULL)
       return; /* Erro: Grafo é null */
@@ -81,7 +63,6 @@ void libera_grafo(Grafo *grafo) {
 }
 
 /* O(n^2) */
-/* Imprime a matriz de adjacência */
 void imprime_grafo(Grafo *grafo) {
    if(grafo == NULL)
       return; /* Erro: Grafo é null */
@@ -95,7 +76,6 @@ void imprime_grafo(Grafo *grafo) {
 }
 
 /* O(n^2) */
-/* Preenche o grafo_t com a transposição do grafo*/
 void grafo_transposto(Grafo *grafo, Grafo *grafo_t) {
    if(grafo == NULL)
       return; /* Erro: Grafo é null */
@@ -114,7 +94,6 @@ void grafo_transposto(Grafo *grafo, Grafo *grafo_t) {
 }
 
 /* O(n) */
-/* Imprime os vértices adjacêntes ao vértice v1 */
 void vertice_adjacente(int v1, Grafo *grafo) {
    if(v1 <= 0 && v1 > VERTICES)
       return; /* Erro: Vértice está fora dos limites*/
@@ -131,7 +110,6 @@ void vertice_adjacente(int v1, Grafo *grafo) {
 }
 
 /* O(n) */
-/* Calcula o grau do vértice v1. Em caso de problemas retorna -1 */
 int grau_vertice(int v1, Grafo *grafo) {
    if(v1 <= 0 && v1 > VERTICES)
       return -1; /* Erro: Vértice está fora dos limites*/
@@ -149,7 +127,6 @@ int grau_vertice(int v1, Grafo *grafo) {
 }
 
 /* O(n^2) */
-/* Imprime o grau de todos os vértices */
 void lista_vertices(Grafo *grafo) {
    if(grafo == NULL)
       return; /* Erro: Grafo é null */
@@ -161,7 +138,6 @@ void lista_vertices(Grafo *grafo) {
 }
 
 /* O(n^2) */
-/* Imprime o valor da soma do grau de todos os vértices */
 void somatorio_grau(Grafo *grafo) {
    if(grafo == NULL)
       return; /* Erro: Grafo é null */
@@ -174,7 +150,6 @@ void somatorio_grau(Grafo *grafo) {
 }
 
 /* O(n^2) */
-/* Retorna true se for completo, caso contrário retorna false */
 trool grafo_completo(Grafo *grafo) {
    if(grafo == NULL)
       return error; /* Erro: Grafo é null */
@@ -189,7 +164,6 @@ trool grafo_completo(Grafo *grafo) {
 }
 
 /* O(n^2) */
-/* Retorna o grau caso seja k-regular, caso contrário retorna -2. Em caso de problema retorna -1 */
 int grafo_k_regular(Grafo *grafo) {
    if(grafo == NULL)
       return -1; /* Erro: Grafo é null */
@@ -202,16 +176,4 @@ int grafo_k_regular(Grafo *grafo) {
          return -2;
          
    return grau;
-}
-
-int main(int argc, char *argv[])
-{
-   Grafo *a = (Grafo *) malloc (sizeof(Grafo));
-   if (a == NULL)
-		return 1;
-
-   cria_grafo_vazio(a);
-   imprime_grafo(a);
-   
-   return 0;
 }
