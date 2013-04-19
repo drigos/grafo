@@ -39,6 +39,9 @@
 	/* Imprime o valor da soma do grau de todos os vértices */
 	void somatorio_grau(Grafo *grafo);
 
+	/* Preenche o grafo_t com a transposição do grafo*/
+	void grafo_transposto(Grafo *grafo, Grafo *grafo_t);
+
 	/* Retorna true se for completo, caso contrário retorna false */
 	trool grafo_completo(Grafo *grafo);
 
@@ -46,6 +49,3 @@
 	int grafo_k_regular(Grafo *grafo);
 
 #endif
-
-	/* Preenche o grafo_t com a transposição do grafo*/
-	void grafo_transposto(Grafo *grafo, Grafo *grafo_t);
