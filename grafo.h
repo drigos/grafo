@@ -12,6 +12,12 @@
 	/* Cria um grafo preenchido com zeros */
 	void cria_grafo_vazio(Grafo *grafo);
 
+	/* Apaga o grafo */
+	void libera_grafo(Grafo *grafo);
+
+	/* Imprime a matriz de adjacência */
+	void imprime_grafo(Grafo *grafo);
+
 	/* Insere aresta entre os vértices v1 e v2 */
 	void insere_aresta(int v1, int v2, Grafo *grafo);
 
@@ -20,15 +26,6 @@
 
 	/* Remove aresta entre os vértices v1 e v2 */
 	void retira_aresta(int v1, int v2, Grafo *grafo);
-
-	/* Apaga o grafo */
-	void libera_grafo(Grafo *grafo);
-
-	/* Imprime a matriz de adjacência */
-	void imprime_grafo(Grafo *grafo);
-
-	/* Preenche o grafo_t com a transposição do grafo*/
-	void grafo_transposto(Grafo *grafo, Grafo *grafo_t);
 
 	/* Imprime os vértices adjacêntes ao vértice v1 */
 	void vertice_adjacente(int v1, Grafo *grafo);
@@ -49,3 +46,6 @@
 	int grafo_k_regular(Grafo *grafo);
 
 #endif
+
+	/* Preenche o grafo_t com a transposição do grafo*/
+	void grafo_transposto(Grafo *grafo, Grafo *grafo_t);

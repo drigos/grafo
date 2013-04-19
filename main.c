@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 
    cria_grafo_vazio(a);
    imprime_grafo(a);
+	libera_grafo(a);
    
    return 0;
 }

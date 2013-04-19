@@ -15,6 +15,28 @@ void cria_grafo_vazio(Grafo *grafo) {
          grafo->matriz_adjacencia[i][j] = 0;
 }
 
+/* Provavelmente O(n^2) */
+void libera_grafo(Grafo *grafo) {
+   if(grafo == NULL)
+      return; /* Erro: Grafo é null */
+
+   free(grafo);
+   grafo = NULL;
+}
+
+/* O(n^2) */
+void imprime_grafo(Grafo *grafo) {
+   if(grafo == NULL)
+      return; /* Erro: Grafo é null */
+      
+   int i, j;
+   for (i = 0; i < VERTICES; i++) {
+      for (j = 0; j < VERTICES; j++)
+         printf ("%3d", grafo->matriz_adjacencia[i][j]);
+      puts ("");
+   }
+}
+
 /* O(1) */
 void insere_aresta(int v1, int v2, Grafo *grafo) {
    if(v1 <= 0 && v1 > VERTICES)
@@ -51,46 +73,6 @@ void retira_aresta(int v1, int v2, Grafo *grafo) {
       
    grafo->matriz_adjacencia[v1][v2] = 0;
    grafo->matriz_adjacencia[v2][v1] = 0;
-}
-
-/* Provavelmente O(n^2) */
-void libera_grafo(Grafo *grafo) {
-   if(grafo == NULL)
-      return; /* Erro: Grafo é null */
-
-   free(grafo);
-   grafo = NULL;
-}
-
-/* O(n^2) */
-void imprime_grafo(Grafo *grafo) {
-   if(grafo == NULL)
-      return; /* Erro: Grafo é null */
-      
-   int i, j;
-   for (i = 0; i < VERTICES; i++) {
-      for (j = 0; j < VERTICES; j++)
-         printf ("%3d", grafo->matriz_adjacencia[i][j]);
-      puts ("");
-   }
-}
-
-/* O(n^2) */
-void grafo_transposto(Grafo *grafo, Grafo *grafo_t) {
-   if(grafo == NULL)
-      return; /* Erro: Grafo é null */
-   if(grafo_t == NULL)
-      return; /* Erro: Grafo é null */
-
-   int i, j;
-   for (i = 0; i < VERTICES; i++)
-      for (j = 0; j < VERTICES; j++)
-         if(i != j) {
-            if(grafo->matriz_adjacencia[i][j] == 0)
-               grafo_t->matriz_adjacencia[i][j] = 1;
-            else
-               grafo_t->matriz_adjacencia[i][j] = 0;
-         }
 }
 
 /* O(n) */
@@ -147,6 +129,24 @@ void somatorio_grau(Grafo *grafo) {
       somatorio += grau_vertice(i, grafo);
    
    printf("A soma do grau de todos os vertices é igual a %d\n", somatorio);
+}
+
+/* O(n^2) */
+void grafo_transposto(Grafo *grafo, Grafo *grafo_t) {
+   if(grafo == NULL)
+      return; /* Erro: Grafo é null */
+   if(grafo_t == NULL)
+      return; /* Erro: Grafo é null */
+
+   int i, j;
+   for (i = 0; i < VERTICES; i++)
+      for (j = 0; j < VERTICES; j++)
+         if(i != j) {
+            if(grafo->matriz_adjacencia[i][j] == 0)
+               grafo_t->matriz_adjacencia[i][j] = 1;
+            else
+               grafo_t->matriz_adjacencia[i][j] = 0;
+         }
 }
 
 /* O(n^2) */
