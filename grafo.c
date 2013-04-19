@@ -46,6 +46,9 @@ void insere_aresta(int v1, int v2, Grafo *grafo) {
    if(grafo == NULL)
       return; // Erro: Grafo é null
 
+   v1--;
+   v2--;
+
    grafo->matriz_adjacencia[v1][v2] = 1;
    grafo->matriz_adjacencia[v2][v1] = 1;
 }
@@ -59,6 +62,9 @@ void insere_arco(int v1, int v2, Grafo *grafo) {
    if(grafo == NULL)
       return; // Erro: Grafo é null
 
+   v1--;
+   v2--;
+
    grafo->matriz_adjacencia[v1][v2] = 1;
 }
 
@@ -70,6 +76,9 @@ void existe_aresta(int v1, int v2, Grafo *grafo) {
       return; // Erro: Vértice está fora dos limites
    if(grafo == NULL)
       return; // Erro: Grafo é null
+
+   v1--;
+   v2--;
 
 	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1)
 		printf("Existe aresta %d,%d", v1, v2);
@@ -88,6 +97,9 @@ void retira_aresta(int v1, int v2, Grafo *grafo) {
    if(grafo == NULL)
       return; // Erro: Grafo é null
       
+   v1--;
+   v2--;
+
    grafo->matriz_adjacencia[v1][v2] = 0;
    grafo->matriz_adjacencia[v2][v1] = 0;
 }
@@ -101,6 +113,9 @@ void retira_arco(int v1, int v2, Grafo *grafo) {
    if(grafo == NULL)
       return; // Erro: Grafo é null
       
+   v1--;
+   v2--;
+
    grafo->matriz_adjacencia[v1][v2] = 0;
 }
 
