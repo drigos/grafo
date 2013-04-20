@@ -34,6 +34,12 @@
 	// Remove arco entre os vértices v1 e v2
 	void retira_arco(int v1, int v2, Grafo *grafo);
 
+	// Imprime todos os nós que tem laços
+	void lacos(Grafo *grafo);
+
+	// Verifica se o grafo é direcionado ou não direcionado
+	void direcionado(Grafo *grafo);
+
 	// Imprime os vértices adjacêntes ao vértice v1
 	void vertice_adjacente(int v1, Grafo *grafo);
 

@@ -120,6 +120,31 @@ void retira_arco(int v1, int v2, Grafo *grafo) {
 }
 
 // O(n)
+void lacos(Grafo *grafo) {
+   if(grafo == NULL)
+      return; // Erro: Grafo é null
+
+	int i;
+	for(i = 0; i < VERTICES; i++)
+		if(grafo->matriz_adjacencia[i][i] = 1)
+			printf("O vertice %d tem um laco", i);
+}
+
+// O(n^2)
+void direcionado(Grafo *grafo) {
+   if(grafo == NULL)
+      return; // Erro: Grafo é null
+
+	int i, j;
+	for(i = 0; i < VERTICES; i++)
+		for(j = 0; j < i; j++)
+			if(grafo->matriz_adjacencia[i][j] != grafo->matriz_adjacencia[j][i])
+				puts("Grafo Não-Direcionado");
+
+	puts("Grafo Direcionado");
+}
+
+// O(n)
 void vertice_adjacente(int v1, Grafo *grafo) {
    if(v1 <= 0 || v1 > VERTICES)
       return; // Erro: Vértice está fora dos limites
