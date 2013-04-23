@@ -26,7 +26,11 @@
 
 	// Verifica a existência de aresta entre dois vértices
 	// ou arcos de v1 para v2 e de v2 para v1
-	void existe_aresta(int v1, int v2, Grafo *grafo);
+	// Retorna 0 se existe aresta
+	// Retorna 1 se existe arco de v1 para v2
+	// Retorna 2 se existe arco de v2 para v1
+	// Em caso de problemas retorna -1
+	int existe_aresta(int v1, int v2, Grafo *grafo);
 
 	// Remove aresta entre os vértices v1 e v2
 	void retira_aresta(int v1, int v2, Grafo *grafo);
@@ -38,18 +42,34 @@
 	void lacos(Grafo *grafo);
 
 	// Verifica se o grafo é direcionado ou não direcionado
-	void direcionado(Grafo *grafo);
+	// Retorna 1 se sim e 0 se não
+	// Em caso de problemas retorna -1
+	int direcionado(Grafo *grafo);
 
 	// Imprime a vizinhança do vértice v1, ou seja, o vértices adjacentes a v1
-	void vizinhaca_aberta(int v1, Grafo *grafo);
+	void vizinhanca_aberta(int v1, Grafo *grafo);
 
 	// Imprime a vizinhança do vértice v1 e o pŕoprio v1
-	void vizinhaca_fechada(int v1, Grafo *grafo);
+	void vizinhanca_fechada(int v1, Grafo *grafo);
 
 	// Verifica se os vértives v1 e v2 são adjacentes, seja a adjacência múltua ou não
-	void vertices_adjacentes(int v1, int v2, Grafo *grafo);
+	// Retorna 0 se há adjacência múltua
+	// Retorna 1 se v2 é adjacente à v1
+	// Retorna 2 se v1 é adjacente à v2
+	// Em caso de problemas retorna -1
+	int vertices_adjacentes(int v1, int v2, Grafo *grafo);
 
-	// Calcula o grau do vértice v1. Em caso de problemas retorna -1
+	// Retorna o grau positivo do vértice (d⁺(v1))
+	// Em caso de problemas retorna -1
+	int grau_positivo(int v1, Grafo *grafo);
+
+	// Retorna o grau negativo do vértice (d⁻(v1))
+	// Em caso de problemas retorna -1
+	int grau_negativo(int v1, Grafo *grafo);
+
+	// Retorna o grau do vértice (d(v1))
+	// Caso o grafo seja direcionado o resultado é a soma de grau_positivo e grau_negativo
+	// Em caso de problemas retorna -1
 	int grau_vertice(int v1, Grafo *grafo);
 
 	// Imprime o grau de todos os vértices

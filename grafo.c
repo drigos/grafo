@@ -69,23 +69,31 @@ void insere_arco(int v1, int v2, Grafo *grafo) {
 }
 
 // O(1)
-void existe_aresta(int v1, int v2, Grafo *grafo) {
+int existe_aresta(int v1, int v2, Grafo *grafo) {
    if(v1 <= 0 || v1 > VERTICES)
-      return; // Erro: Vértice está fora dos limites
+      return -1; // Erro: Vértice está fora dos limites
    if(v2 <= 0 || v2 > VERTICES)
-      return; // Erro: Vértice está fora dos limites
+      return -1; // Erro: Vértice está fora dos limites
    if(grafo == NULL)
-      return; // Erro: Grafo é null
+      return -1; // Erro: Grafo é null
 
    v1--;
    v2--;
 
-	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1)
+	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1) {
 		printf("Existe aresta %d,%d\n", v1+1, v2+1);
-	else if(grafo->matriz_adjacencia[v1][v2] == 1)
+		return 0;
+	}
+	else if(grafo->matriz_adjacencia[v1][v2] == 1) {
 		printf("Existe arco %d,%d\n", v1+1, v2+1);
-	else if(grafo->matriz_adjacencia[v2][v1] == 1)
+		return 1;
+	}
+	else if(grafo->matriz_adjacencia[v2][v1] == 1) {
 		printf("Existe arco %d,%d\n", v2+1, v1+1);
+		return 2;
+	}
+
+	return -1; // Erro: Desconhecido
 }
 
 // O(1)
@@ -126,22 +134,25 @@ void lacos(Grafo *grafo) {
 
 	int i;
 	for(i = 0; i < VERTICES; i++)
-		if(grafo->matriz_adjacencia[i][i] = 1)
+		if(grafo->matriz_adjacencia[i][i] == 1)
 			printf("O vertice %d tem um laco\n", i);
 }
 
 // O(n^2)
-void direcionado(Grafo *grafo) {
+int direcionado(Grafo *grafo) {
    if(grafo == NULL)
-      return; // Erro: Grafo é null
+      return -1; // Erro: Grafo é null
 
 	int i, j;
 	for(i = 0; i < VERTICES; i++)
 		for(j = 0; j < i; j++)
-			if(grafo->matriz_adjacencia[i][j] != grafo->matriz_adjacencia[j][i])
+			if(grafo->matriz_adjacencia[i][j] != grafo->matriz_adjacencia[j][i]) {
 				puts("Grafo Não-Direcionado");
+				return 0;
+			}
 
 	puts("Grafo Direcionado");
+	return 1;
 }
 
 // O(n)
@@ -184,23 +195,65 @@ void vizinhanca_fechada(int v1, Grafo *grafo) {
 }
 
 // O(1)
-void vertices_adjacentes(int v1, int v2, Grafo *grafo) {
+int vertices_adjacentes(int v1, int v2, Grafo *grafo) {
    if(v1 <= 0 || v1 > VERTICES)
-      return; // Erro: Vértice está fora dos limites
+      return -1; // Erro: Vértice está fora dos limites
    if(v2 <= 0 || v2 > VERTICES)
-      return; // Erro: Vértice está fora dos limites
+      return -1; // Erro: Vértice está fora dos limites
    if(grafo == NULL)
-      return; // Erro: Grafo é null
+      return -1; // Erro: Grafo é null
       
    v1--;
    v2--;
 
-	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1)
+	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1) {
 		printf("Existe adjacencia multua entre os vertices %d e %d\n", v1+1, v2+1);
-	else if(grafo->matriz_adjacencia[v1][v2] == 1)
+		return 0;
+	}
+	else if(grafo->matriz_adjacencia[v1][v2] == 1) {
 		printf("O vertice %d eh adjacente ao %d, mas nao o oposto\n", v2+1, v1+1);
-	else if(grafo->matriz_adjacencia[v2][v1] == 1)
+		return 1;
+	}
+	else if(grafo->matriz_adjacencia[v2][v1] == 1) {
 		printf("O vertice %d eh adjacente ao %d, mas nao o oposto\n", v1+1, v2+1);
+		return 2;
+	}
+
+	return -1; // Erro: Desconhecido
+}
+
+// O(n)
+int grau_positivo(int v1, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return -1; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	int i, grau_positivo = 0;
+	v1--;
+
+	for(i = 0; i < VERTICES; i++)
+		if(grafo->matriz_adjacencia[v1][i] != 0)
+			grau_positivo++;
+
+	return grau_positivo;
+}
+
+// O(n)
+int grau_negativo(int v1, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return -1; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	int i, grau_negativo = 0;
+	v1--;
+
+	for(i = 0; i < VERTICES; i++)
+		if(grafo->matriz_adjacencia[i][v1] != 0)
+			grau_negativo++;
+
+	return grau_negativo;
 }
 
 // O(n)
@@ -210,12 +263,18 @@ int grau_vertice(int v1, Grafo *grafo) {
    if(grafo == NULL)
       return -1; // Erro: Grafo é null
 
+	int direc = direcionado(grafo);
+
    int i, grau = 0;
-   v1--;
    
-   for(i = 0; i < VERTICES; i++)
-      if(grafo->matriz_adjacencia[i][v1] != 0)
-         grau++;
+	if(direc)
+		grau = grau_positivo(v1, grafo) + grau_negativo(v1, grafo);
+	else {
+		v1--;
+		for(i = 0; i < VERTICES; i++)
+			if(grafo->matriz_adjacencia[v1][i] != 0)
+				grau++;
+	}
          
    return grau;
 }
