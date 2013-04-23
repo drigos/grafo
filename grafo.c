@@ -81,11 +81,11 @@ void existe_aresta(int v1, int v2, Grafo *grafo) {
    v2--;
 
 	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1)
-		printf("Existe aresta %d,%d", v1, v2);
+		printf("Existe aresta %d,%d\n", v1+1, v2+1);
 	else if(grafo->matriz_adjacencia[v1][v2] == 1)
-		printf("Existe arco %d,%d", v1, v2);
+		printf("Existe arco %d,%d\n", v1+1, v2+1);
 	else if(grafo->matriz_adjacencia[v2][v1] == 1)
-		printf("Existe arco %d,%d", v2, v1);
+		printf("Existe arco %d,%d\n", v2+1, v1+1);
 }
 
 // O(1)
@@ -127,7 +127,7 @@ void lacos(Grafo *grafo) {
 	int i;
 	for(i = 0; i < VERTICES; i++)
 		if(grafo->matriz_adjacencia[i][i] = 1)
-			printf("O vertice %d tem um laco", i);
+			printf("O vertice %d tem um laco\n", i);
 }
 
 // O(n^2)
@@ -145,7 +145,7 @@ void direcionado(Grafo *grafo) {
 }
 
 // O(n)
-void vertice_adjacente(int v1, Grafo *grafo) {
+void vizinhanca_aberta(int v1, Grafo *grafo) {
    if(v1 <= 0 || v1 > VERTICES)
       return; // Erro: Vértice está fora dos limites
    if(grafo == NULL)
@@ -154,10 +154,53 @@ void vertice_adjacente(int v1, Grafo *grafo) {
    int i;
    v1--;
    
-   printf("Vertices adjacentes de %d:\n", v1+1);
+   printf("Vizinhanca aberta de %d:\n", v1+1);
    for(i = 0; i < VERTICES; i++)
-      if(grafo->matriz_adjacencia[i][v1] != 0)
+      if(grafo->matriz_adjacencia[v1][i] != 0)
+         printf("%d ", i+1);
+}
+
+// O(n)
+void vizinhanca_fechada(int v1, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return; // Erro: Grafo é null
+
+   int i;
+   v1--;
+   
+   printf("Vizinhança fechada de %d:\n", v1+1);
+
+   for(i = 0; i < v1; i++)
+      if(grafo->matriz_adjacencia[v1][i] != 0)
+         printf("%d ", i+1);
+
+	printf("%d ", v1+1);
+	
+   for(i = v1+1; i < VERTICES; i++)
+      if(grafo->matriz_adjacencia[v1][i] != 0)
          printf("%d\n", i+1);
+}
+
+// O(1)
+void vertices_adjacentes(int v1, int v2, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return; // Erro: Vértice está fora dos limites
+   if(v2 <= 0 || v2 > VERTICES)
+      return; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return; // Erro: Grafo é null
+      
+   v1--;
+   v2--;
+
+	if(grafo->matriz_adjacencia[v1][v2] == 1 && grafo->matriz_adjacencia[v2][v1] == 1)
+		printf("Existe adjacencia multua entre os vertices %d e %d\n", v1+1, v2+1);
+	else if(grafo->matriz_adjacencia[v1][v2] == 1)
+		printf("O vertice %d eh adjacente ao %d, mas nao o oposto\n", v2+1, v1+1);
+	else if(grafo->matriz_adjacencia[v2][v1] == 1)
+		printf("O vertice %d eh adjacente ao %d, mas nao o oposto\n", v1+1, v2+1);
 }
 
 // O(n)

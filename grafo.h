@@ -40,8 +40,14 @@
 	// Verifica se o grafo é direcionado ou não direcionado
 	void direcionado(Grafo *grafo);
 
-	// Imprime os vértices adjacêntes ao vértice v1
-	void vertice_adjacente(int v1, Grafo *grafo);
+	// Imprime a vizinhança do vértice v1, ou seja, o vértices adjacentes a v1
+	void vizinhaca_aberta(int v1, Grafo *grafo);
+
+	// Imprime a vizinhança do vértice v1 e o pŕoprio v1
+	void vizinhaca_fechada(int v1, Grafo *grafo);
+
+	// Verifica se os vértives v1 e v2 são adjacentes, seja a adjacência múltua ou não
+	void vertices_adjacentes(int v1, int v2, Grafo *grafo);
 
 	// Calcula o grau do vértice v1. Em caso de problemas retorna -1
 	int grau_vertice(int v1, Grafo *grafo);
