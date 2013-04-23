@@ -279,6 +279,26 @@ int grau_vertice(int v1, Grafo *grafo) {
    return grau;
 }
 
+// O(n)
+int vertice_isolado(int v1, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return -1; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	return grau_vertice(v1, grafo) ? 0 : 1 ;
+}
+
+// 
+int vertice_pendente(int v1, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return -1; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	return grau_vertice(v1, grafo)==1 ? 1 : 0 ;
+}
+
 // O(n^2)
 void lista_vertices(Grafo *grafo) {
    if(grafo == NULL)

@@ -72,6 +72,16 @@
 	// Em caso de problemas retorna -1
 	int grau_vertice(int v1, Grafo *grafo);
 
+	// Verifica se o vértice é isolado
+	// Retorna 1 se sim e 0 se não
+	// Em caso de problemas retorna -1
+	int vertice_isolado(int v1, Grafo *grafo);
+
+	// Verifica se o vértice é pendente
+	// Retorna 1 se sim e 0 se não
+	// Em caso de problemas retorna -1
+	int vertice_pendente(int v1, Grafo *grafo);
+
 	// Imprime o grau de todos os vértices
 	void lista_vertices(Grafo *grafo);
 
