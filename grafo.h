@@ -97,4 +97,36 @@
 	// Retorna o grau caso seja k-regular, caso contrário retorna -2. Em caso de problema retorna -1
 	int grafo_k_regular(Grafo *grafo);
 
+	// Passado um vértice "v1",
+	// a array "componente" será preenchida com o valor de "num_componente"
+	// para todo índice equivalente a um vértice que esteja conectado a "v1"
+	// no grafo "grafo"
+	// v1 = vertice - 1;
+	// O produto gerado por esta função é a array "componente"
+	void conexo_recursivo(int v1, int num_componente, int *componente, Grafo *grafo);
+
+	// Chama a função conexo_recursivo, até que toda a array esteja preenchida
+	// Retorna o número de componentes conexas
+	// Retorna -1 no caso de erro
+	int componente_conexa(int *componente, Grafo *grafo);
+
+	// Chama a função conexo_recursivo para preenche a array "componente"
+	// com o valor 1 todo índice equivalente a um vértice conectado a "v1"
+	// Em seguida verifica se o elemento de índice v1 e v2 são iguais
+	// Se sim v1 e v2 estão conectado e retorna 1 se não retorna 0
+	// Em caso de problemas retorna -1
+	int vertice_conectado(int v1, int v2, Grafo *grafo);
+
+	// Chama a função conexo_recursivo para preencher a array "componente"
+	// com o valor 1 todo índice equivalente a um vértice conectado ao primeiro vértice
+	// Em seguida verifica se existe algum elemento com valor diferente de 1
+	// Se sim o grafo é desconexo se não ele é conexo
+	// Em caso de problemas retorna -1
+	int grafo_conexo(Grafo *grafo);
+
+	// Usa a função componente_conexa para preencher a array "componente"
+	// e retornar o número de componentes conexas
+	// Imprime vértices e suas respectivas arrays
+//	void imprime_componente_conexa(Grafo *grafo);
+
 #endif

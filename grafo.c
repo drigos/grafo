@@ -289,7 +289,7 @@ int vertice_isolado(int v1, Grafo *grafo) {
 	return grau_vertice(v1, grafo) ? 0 : 1 ;
 }
 
-// 
+// O(n)
 int vertice_pendente(int v1, Grafo *grafo) {
    if(v1 <= 0 || v1 > VERTICES)
       return -1; // Erro: Vértice está fora dos limites
@@ -368,3 +368,98 @@ int grafo_k_regular(Grafo *grafo) {
          
    return grau;
 }
+
+// Provavelmente O(n^2) 
+void conexo_recursivo(int v1, int num_componente, int *componente, Grafo *grafo) {
+	componente[v1] = num_componente;
+
+	int vertice;
+	for(vertice = 0; vertice < VERTICES; vertice++)
+		if(grafo->matriz_adjacencia[vertice][v1] == 1 && componente[vertice] == 0)
+			conexo_recursivo(vertice, num_componente, componente, grafo);
+
+	return;
+}
+
+// Provavelmente O(n^2)
+int componente_conexa(int *componente, Grafo *grafo) {
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	if(componente == NULL) {
+		componente = (int*) calloc(VERTICES, sizeof(int));
+
+		if(componente == NULL)
+			return -1; // Erro: Array não alocada
+	}
+
+	int num_componente = 0;
+
+	int vertice;
+	for(vertice = 0; vertice < VERTICES; vertice++)
+		if(componente[vertice] == 0) {
+			num_componente++;
+			conexo_recursivo(vertice, num_componente, componente, grafo);
+		}
+
+	return num_componente;
+}
+
+// Provavelmente O(n^2)
+int vertice_conectado(int v1, int v2, Grafo *grafo) {
+   if(v1 <= 0 || v1 > VERTICES)
+      return -1; // Erro: Vértice está fora dos limites
+   if(v2 <= 0 || v2 > VERTICES)
+      return -1; // Erro: Vértice está fora dos limites
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	int *componente = (int*) calloc(VERTICES, sizeof(int));
+	if(componente == NULL)
+		return -1; // Erro: Array não alocada
+
+	v1--;
+	v2--;
+
+	conexo_recursivo(v1, 1, componente, grafo);
+
+	return componente[v1] == componente[v2] ? 1 : 0;
+}
+
+// Provavelmente O(n^2)
+int grafo_conexo(Grafo *grafo) {
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	int *componente = (int*) calloc(VERTICES, sizeof(int));
+	if(componente == NULL)
+		return -1; // Erro: Array não alocada
+
+	conexo_recursivo(0, 1, componente, grafo);
+
+	int i;
+	for(i = 0; i < VERTICES; i++)
+		if(componente[i] != 1)
+			return 0;
+
+	return 1;
+}
+/*
+// 
+void imprime_componente_conexa(Grafo *grafo) {
+   if(grafo == NULL)
+      return -1; // Erro: Grafo é null
+
+	int *componente = (int*) calloc(VERTICES, sizeof(int));
+	if(componente == NULL)
+		return NULL; // Erro: Array não alocada
+
+	int num_componente = componente_conexa(componente, grafo);
+
+	int *placeholder[num_componente];
+
+	int i;
+	for(i = 0; i < VERTICES; i++) {
+		
+	}
+}*/
